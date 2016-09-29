@@ -1,5 +1,6 @@
-docker build -t registry.cn-hangzhou.aliyuncs.com/jingshanlb/bluegreen-service-b:$(git rev-parse --short HEAD) .
-image_id=$(docker build -q -t registry.cn-hangzhou.aliyuncs.com/jingshanlb/bluegreen-service-b:$(git rev-parse --short HEAD) .)
-docker tag ${image_id} registry.cn-hangzhou.aliyuncs.com/jingshanlb/bluegreen-service-b:b${BUILD_NUMBER}
+git_hash=$(git rev-parse --short HEAD)
+docker build -t registry.cn-hangzhou.aliyuncs.com/jingshanlb/bluegreen-service-b:${git_hash} .
+image_id=$(docker build -q -t registry.cn-hangzhou.aliyuncs.com/jingshanlb/bluegreen-service-b:${git_hash})
 docker tag ${image_id} registry.cn-hangzhou.aliyuncs.com/jingshanlb/bluegreen-service-b:latest
-docker push registry.cn-hangzhou.aliyuncs.com/jingshanlb/bluegreen-service-b
+docker push registry.cn-hangzhou.aliyuncs.com/jingshanlb/bluegreen-service-b:${git_hash}
+docker push registry.cn-hangzhou.aliyuncs.com/jingshanlb/bluegreen-service-b:latest
